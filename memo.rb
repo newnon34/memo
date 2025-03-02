@@ -7,7 +7,8 @@ memo_type = gets.to_i
 #ファイル名を取得する get_filenameメソッドの定義
 def get_filename
   print "拡張子を除いたファイル名を入力してください（例: memo）: "
-  gets.chomp
+  filename = gets.chomp
+  "#{filename}.csv"
 end
 
 #メモの内容を取得する write_new_fileメソッドの定義
@@ -16,7 +17,7 @@ def write_new_file(filename)
   puts "記入したらEnterを押します"
   memo = gets.chomp
 
-  CSV.open(filename, "w") do |csv|
+  CSV.open(filename, "w", encoding: "Shift_JIS") do |csv|
     csv << ["メモ"]
     csv << [memo]
   end
@@ -34,7 +35,7 @@ def append_to_file(filename)
   print "追記するメモを入力してください: "
   memo = gets.chomp
 
-  CSV.open(filename, "a") do |csv|
+  CSV.open(filename, "a", encoding: "Shift_JIS") do |csv|
     csv << [memo]
   end
 
@@ -45,7 +46,7 @@ end
 if memo_type == 1
   #ファイル名を入力
   filename = get_filename
-  write_new_file(filename)
+  write_new_file(filename) 
 
  #2(編集)の場合 
  elsif memo_type == 2
